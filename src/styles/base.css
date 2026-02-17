@@ -1,0 +1,142 @@
+:root {
+  --bg: #0f1114;
+  --card: #14171c;
+  --ink: #f3f4f6;
+  --muted: #9aa3b2;
+  --accent: #f97316;
+  --accent-2: #fdba74;
+  --danger: #f87171;
+  --border: #23262c;
+  --shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  font-family: "Space Grotesk", "IBM Plex Sans", system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 40px 16px;
+  background: radial-gradient(circle at top left, #1a1f27 0%, transparent 55%),
+    radial-gradient(circle at bottom right, #1c130c 0%, transparent 60%),
+    var(--bg);
+}
+
+.card {
+  width: min(560px, 100%);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: var(--shadow);
+}
+
+h1 {
+  margin: 0 0 8px 0;
+  font-size: 26px;
+  letter-spacing: -0.02em;
+}
+
+p.sub {
+  margin: 0 0 20px 0;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+label {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+input[type='text'],
+input[type='password'] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 15px;
+  margin-top: 6px;
+  background: #0f1115;
+  color: var(--ink);
+}
+
+button {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  background: var(--accent);
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+button.secondary {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+
+button.danger {
+  background: var(--danger);
+}
+
+button.danger.icon-button {
+  background: linear-gradient(135deg, #ef4444, #f97316);
+  color: #0b0d10;
+  box-shadow: 0 10px 20px rgba(239, 68, 68, 0.35);
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.row.space {
+  justify-content: space-between;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.form {
+  display: grid;
+  gap: 12px;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+}
+
+.icon-button {
+  padding: 8px 12px;
+}
+
+small.error {
+  color: var(--danger);
+}
+
+small.muted {
+  color: var(--muted);
+}
