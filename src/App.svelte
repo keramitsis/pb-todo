@@ -1,5 +1,5 @@
 <script>
-  import { auth, pb } from './lib/pb'
+  import { auth, pb } from './lib/pb.svelte.js'
   const avatarUrl = (record) => (record?.avatar ? pb.files.getUrl(record, record.avatar) : '')
   import Login from './components/Login.svelte'
   import TodoList from './components/TodoList.svelte'
@@ -9,7 +9,7 @@
 
 <main>
   <div class="card">
-    {#if !$auth.valid}
+    {#if !auth.valid}
       <Login />
     {:else}
       <div class="row space">
@@ -17,10 +17,10 @@
           <h1>Your todos</h1>
           <p class="sub">
             Signed in as
-            {#if $auth.record?.avatar}
-              <img class="avatar" src={avatarUrl($auth.record)} alt="User avatar" />
+            {#if auth.record?.avatar}
+              <img class="avatar" src={avatarUrl(auth.record)} alt="User avatar" />
             {/if}
-            <strong>{$auth.record?.username ?? $auth.record?.email ?? 'unknown'}</strong>
+            <strong>{auth.record?.username ?? auth.record?.email ?? 'unknown'}</strong>
           </p>
         </div>
         <button class="secondary icon-button" on:click={logout}>
@@ -33,7 +33,7 @@
         </button>
       </div>
 
-      <TodoList userId={$auth.record?.id} />
+      <TodoList userId={auth.record?.id} />
     {/if}
   </div>
 </main>

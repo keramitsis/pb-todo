@@ -11,24 +11,24 @@
   } from '../lib/offline'
   import TodoItem from './TodoItem.svelte'
 
-  export let userId = null
+  let { userId = null } = $props()
 
-  let newTitle = ''
-  let todos = []
-  let loadError = ''
-  let loadingTodos = false
-  let busy = false
-  let editingId = null
-  let editingTitle = ''
-  let suppressBlurSave = false
-  let currentUserId = null
-  let draggingId = null
-  let dragOverId = null
-  let dragOverPosition = null
-  let reorderId = null
-  let online = true
-  let offlineNotice = ''
-  let conflictNotice = ''
+  let newTitle = $state('')
+  let todos = $state([])
+  let loadError = $state('')
+  let loadingTodos = $state(false)
+  let busy = $state(false)
+  let editingId = $state(null)
+  let editingTitle = $state('')
+  let suppressBlurSave = $state(false)
+  let currentUserId = $state(null)
+  let draggingId = $state(null)
+  let dragOverId = $state(null)
+  let dragOverPosition = $state(null)
+  let reorderId = $state(null)
+  let online = $state(true)
+  let offlineNotice = $state('')
+  let conflictNotice = $state('')
 
   const setBusy = (value) => {
     busy = value
@@ -272,27 +272,29 @@
     await applyReorder(reordered)
   }
 
-  $: if (userId !== currentUserId) {
-    currentUserId = userId
-    if (userId) {
-      if (online) {
-        processQueue(userId, { createTodo, updateTodo, deleteTodo, getTodo })
-          .then((result) => {
-            if (result?.skipped?.length) {
-              conflictNotice = `Skipped ${result.skipped.length} change(s) due to newer server updates.`
-            }
-            return loadTodos()
-          })
-          .catch(() => loadTodos())
+  $effect(() => {
+    if (userId !== currentUserId) {
+      currentUserId = userId
+      if (userId) {
+        if (online) {
+          processQueue(userId, { createTodo, updateTodo, deleteTodo, getTodo })
+            .then((result) => {
+              if (result?.skipped?.length) {
+                conflictNotice = `Skipped ${result.skipped.length} change(s) due to newer server updates.`
+              }
+              return loadTodos()
+            })
+            .catch(() => loadTodos())
+        } else {
+          todos = loadCachedTodos(userId)
+        }
       } else {
-        todos = loadCachedTodos(userId)
+        todos = []
+        editingId = null
+        editingTitle = ''
       }
-    } else {
-      todos = []
-      editingId = null
-      editingTitle = ''
     }
-  }
+  })
 
   onMount(() => {
     online = isOnline()

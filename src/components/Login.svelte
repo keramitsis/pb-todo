@@ -1,13 +1,13 @@
 <script>
-  import { pb } from '../lib/pb'
+  import { pb } from '../lib/pb.svelte.js'
   import { runTask } from '../lib/async'
 
-  export let onSuccess = () => {}
+  let { onSuccess = () => {} } = $props()
 
-  let username = ''
-  let password = ''
-  let loginError = ''
-  let busy = false
+  let username = $state('')
+  let password = $state('')
+  let loginError = $state('')
+  let busy = $state(false)
 
   const setBusy = (value) => {
     busy = value

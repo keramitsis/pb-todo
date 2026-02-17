@@ -1,19 +1,19 @@
 import PocketBase from 'pocketbase'
-import { writable } from 'svelte/store'
 
 export const pb = new PocketBase(import.meta.env.VITE_PB_URL)
 pb.autoCancellation(false)
 
-const initialAuth = {
+let authState = $state({
   valid: pb.authStore.isValid,
   record: pb.authStore.record
-}
-
-export const auth = writable(initialAuth)
+})
 
 pb.authStore.onChange(() => {
-  auth.set({
-    valid: pb.authStore.isValid,
-    record: pb.authStore.record
-  })
+  authState.valid = pb.authStore.isValid
+  authState.record = pb.authStore.record
 }, true)
+
+export const auth = {
+  get valid() { return authState.valid },
+  get record() { return authState.record }
+}

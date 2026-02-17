@@ -1,24 +1,26 @@
 <script>
-  export let todo
-  export let isEditing = false
-  export let editingTitle = ''
-  export let busy = false
-  export let onToggle = () => {}
-  export let onStartEdit = () => {}
-  export let onSave = () => {}
-  export let onCancel = () => {}
-  export let onDelete = () => {}
-  export let onTitleChange = () => {}
-  export let onBlur = () => {}
-  export let onDragStart = () => {}
-  export let onDragOver = () => {}
-  export let onDrop = () => {}
-  export let onDragEnd = () => {}
-  export let dropPosition = null
-  export let showReorder = false
-  export let onMoveUp = () => {}
-  export let onMoveDown = () => {}
-  export let onLongPress = () => {}
+  let {
+    todo,
+    isEditing = false,
+    editingTitle = '',
+    busy = false,
+    onToggle = () => {},
+    onStartEdit = () => {},
+    onSave = () => {},
+    onCancel = () => {},
+    onDelete = () => {},
+    onTitleChange = () => {},
+    onBlur = () => {},
+    onDragStart = () => {},
+    onDragOver = () => {},
+    onDrop = () => {},
+    onDragEnd = () => {},
+    dropPosition = null,
+    showReorder = false,
+    onMoveUp = () => {},
+    onMoveDown = () => {},
+    onLongPress = () => {}
+  } = $props()
 
   let touchTimer = null
 

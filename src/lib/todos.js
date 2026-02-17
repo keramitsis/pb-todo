@@ -1,4 +1,4 @@
-import { pb } from './pb'
+import { pb } from './pb.svelte.js'
 
 export const listTodos = async (userId) => {
   return pb.collection('todos').getFullList({
