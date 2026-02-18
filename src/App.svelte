@@ -34,14 +34,14 @@
   })
 </script>
 
-<main>
-  <div class="card">
+<main class:todo-main={auth.valid}>
+  <div class={`card ${auth.valid ? 'todo-screen' : ''}`}>
     {#if !auth.valid}
       <Login />
     {:else}
       <div class="header">
         <div>
-          <h1>ToDo&apos;s</h1>
+          <h1>My Tasks</h1>
         </div>
         <div class="profile-menu" bind:this={menuRef}>
           <button

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'todos-pwa-v1'
+const CACHE_NAME = 'todos-pwa-v2'
 const CORE_ASSETS = [
   '/',
   '/index.html',
@@ -7,6 +7,33 @@ const CORE_ASSETS = [
   '/icons/icon-512.png',
   '/icons/icon-512-maskable.png'
 ]
+
+const isStaticAsset = (pathname) =>
+  pathname.startsWith('/assets/') || /\.(?:js|css|png|jpg|jpeg|svg|webp|ico|woff2?)$/i.test(pathname)
+
+const networkFirst = async (request) => {
+  try {
+    const response = await fetch(request)
+    const cache = await caches.open(CACHE_NAME)
+    cache.put(request, response.clone())
+    return response
+  } catch {
+    const cached = await caches.match(request)
+    return cached || Response.error()
+  }
+}
+
+const staleWhileRevalidate = async (request) => {
+  const cache = await caches.open(CACHE_NAME)
+  const cached = await cache.match(request)
+  const networkPromise = fetch(request)
+    .then((response) => {
+      cache.put(request, response.clone())
+      return response
+    })
+    .catch(() => null)
+  return cached || (await networkPromise) || Response.error()
+}
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -22,6 +49,12 @@ self.addEventListener('activate', (event) => {
   )
 })
 
+self.addEventListener('message', (event) => {
+  if (event.data?.type === 'SKIP_WAITING') {
+    self.skipWaiting()
+  }
+})
+
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return
 
@@ -30,14 +63,15 @@ self.addEventListener('fetch', (event) => {
     return
   }
 
-  event.respondWith(
-    caches.match(event.request).then((cached) => {
-      if (cached) return cached
-      return fetch(event.request).then((response) => {
-        const copy = response.clone()
-        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy))
-        return response
-      })
-    })
-  )
+  if (event.request.mode === 'navigate') {
+    event.respondWith(networkFirst(event.request))
+    return
+  }
+
+  if (isStaticAsset(url.pathname)) {
+    event.respondWith(staleWhileRevalidate(event.request))
+    return
+  }
+
+  event.respondWith(networkFirst(event.request))
 })
