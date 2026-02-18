@@ -337,16 +337,11 @@
     addTodo()
   }}
 >
-  <div class="todo-add-input-wrap">
-    <svg class="todo-add-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="11" cy="11" r="8" />
-      <path d="M21 21l-4.35-4.35" />
-    </svg>
-    <input id="newTitle" class="todo-add-input" type="text" bind:value={newTitle} placeholder="New Task" />
-  </div>
+  <input id="newTitle" class="todo-add-input" type="text" bind:value={newTitle} placeholder="New Task" />
   <button type="submit" class="icon-button todo-filter-btn" aria-label="Add todo" disabled={busy}>
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+      <path d="M12 5v14" />
+      <path d="M5 12h14" />
     </svg>
   </button>
 </form>
