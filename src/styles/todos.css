@@ -90,7 +90,7 @@
   box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.16);
 }
 
-.todo-add-form .todo-filter-btn {
+.todo-add-form .todo-add-btn {
   width: 46px;
   height: 46px;
   justify-content: center;
@@ -102,7 +102,7 @@
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.22);
 }
 
-.todo-add-form .todo-filter-btn:hover {
+.todo-add-form .todo-add-btn:hover {
   background: #2f2f2f;
 }
 
@@ -152,7 +152,7 @@
   background: radial-gradient(circle at center, #f59e0b 0 42%, transparent 44% 100%);
 }
 
-.todo-main-col {
+.todo-item-main {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
@@ -184,7 +184,7 @@
   opacity: 0.72;
 }
 
-.todo-title {
+.todo-item-title {
   margin: 0;
   padding: 0;
   border: 0;
@@ -208,7 +208,7 @@
   gap: 0;
 }
 
-.todo-item.done .todo-title {
+.todo-item.done .todo-item-title {
   text-decoration: line-through;
 }
 
@@ -223,7 +223,7 @@
   min-width: 0;
 }
 
-.todo-actions {
+.todo-item-actions {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -291,7 +291,7 @@
     padding: 16px 14px;
   }
 
-  .todo-title {
+  .todo-item-title {
     font-size: 1rem;
   }
 }

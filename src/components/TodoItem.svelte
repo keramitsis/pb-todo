@@ -60,7 +60,7 @@
   ontouchstart={handleTouchStart}
   ontouchend={handleTouchEnd}
 >
-  <div class="todo-main-col">
+  <div class="todo-item-main">
     <input type="checkbox" checked={todo.done} onchange={() => onToggle(todo)} />
     {#if isEditing}
       <input
@@ -77,7 +77,7 @@
     {:else}
       <button
         type="button"
-        class="todo-title"
+        class="todo-item-title"
         aria-label={`Edit todo: ${todo.title}`}
         ondblclick={() => onStartEdit(todo)}
       >
@@ -86,7 +86,7 @@
     {/if}
   </div>
   {#if isEditing}
-    <div class="row todo-actions">
+    <div class="row todo-item-actions">
       <button class="icon-button" aria-label="Save todo title" onclick={onSave} disabled={busy}>
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
@@ -108,7 +108,7 @@
       </button>
     </div>
   {:else}
-    <div class="row todo-actions">
+    <div class="row todo-item-actions">
       {#if showReorder}
         <button class="secondary icon-button" aria-label="Move todo up" onclick={() => onMoveUp(todo)}>
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
