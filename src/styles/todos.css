@@ -30,8 +30,8 @@
 
 .todo-screen .avatar,
 .todo-screen .avatar-fallback {
-  width: 46px;
-  height: 46px;
+  width: 52px;
+  height: 52px;
   border: 2px solid var(--accent);
   box-shadow: 0 10px 24px rgba(217, 119, 6, 0.22);
 }

@@ -34,42 +34,59 @@
   }
 </script>
 
-<h1>Sign in</h1>
-<p class="sub">Use your PocketBase username and password.</p>
+<section class="auth-view">
+  <header class="auth-header">
+    <p class="auth-kicker">TASK DASHBOARD</p>
+    <h1 class="auth-title">Sign in</h1>
+  </header>
 <form
-  class="form"
+  class="auth-form"
   onsubmit={(event) => {
     event.preventDefault()
     login()
   }}
 >
-  <div>
-    <label for="username">Username or email</label>
-    <input
-      id="username"
-      class="auth-input"
-      type="text"
-      bind:value={username}
-      autocomplete="username"
-    />
+  <div class="auth-field">
+    <label for="username" class="auth-label">Email</label>
+    <div class="auth-input-wrap">
+      <svg class="auth-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 6h16v12H4z" />
+        <path d="M4 7l8 6 8-6" />
+      </svg>
+      <input
+        id="username"
+        class="auth-input"
+        type="email"
+        bind:value={username}
+        autocomplete="username"
+        placeholder="name@example.com"
+      />
+    </div>
   </div>
-  <div>
-    <label for="password">Password</label>
-    <input
-      id="password"
-      class="auth-input"
-      type="password"
-      bind:value={password}
-      autocomplete="current-password"
-    />
+  <div class="auth-field">
+    <label for="password" class="auth-label">Password</label>
+    <div class="auth-input-wrap">
+      <svg class="auth-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="5" y="11" width="14" height="10" rx="2" />
+        <path d="M8 11V8a4 4 0 1 1 8 0v3" />
+      </svg>
+      <input
+        id="password"
+        class="auth-input"
+        type="password"
+        bind:value={password}
+        autocomplete="current-password"
+        placeholder="••••••••"
+      />
+    </div>
   </div>
   {#if loginError}
     <small class="error">{loginError}</small>
   {/if}
   <button class="auth-button" type="submit" disabled={busy}>
-    Login
+    <span class="auth-button-label">Sign In</span>
     <svg
-      class="icon"
+      class="icon auth-button-icon"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -77,8 +94,9 @@
       stroke-linecap="round"
       stroke-linejoin="round"
     >
-      <line x1="5" y1="12" x2="19" y2="12"></line>
-      <polyline points="12 5 19 12 12 19"></polyline>
+      <path d="M9 5l7 7-7 7" />
+      <path d="M4 12h11" />
     </svg>
   </button>
 </form>
+</section>
