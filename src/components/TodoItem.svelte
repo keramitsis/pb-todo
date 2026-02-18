@@ -45,46 +45,60 @@
 
 <div
   class={`todo-item ${todo.done ? 'done' : ''} ${dropPosition ? `drop-${dropPosition}` : ''}`}
+  role="listitem"
   draggable="true"
-  on:dragstart={() => onDragStart(todo)}
-  on:dragover={(e) => {
+  ondragstart={() => onDragStart(todo)}
+  ondragover={(e) => {
     e.preventDefault()
     onDragOver(todo, e)
   }}
-  on:dragend={onDragEnd}
-  on:drop={(e) => {
+  ondragend={onDragEnd}
+  ondrop={(e) => {
     e.preventDefault()
     onDrop(todo)
   }}
-  on:touchstart={handleTouchStart}
-  on:touchend={handleTouchEnd}
+  ontouchstart={handleTouchStart}
+  ontouchend={handleTouchEnd}
 >
-  <input type="checkbox" checked={todo.done} on:change={() => onToggle(todo)} />
+  <input type="checkbox" checked={todo.done} onchange={() => onToggle(todo)} />
   {#if isEditing}
     <input
       type="text"
       value={editingTitle}
       use:autofocus
-      on:input={(e) => onTitleChange(e.target.value)}
-      on:blur={onBlur}
-      on:keydown={(e) => {
+      oninput={(e) => onTitleChange(e.target.value)}
+      onblur={onBlur}
+      onkeydown={(e) => {
         if (e.key === 'Enter') onSave()
         if (e.key === 'Escape') onCancel()
       }}
     />
   {:else}
-    <div on:dblclick={() => onStartEdit(todo)}>{todo.title}</div>
+    <button
+      type="button"
+      class="todo-title"
+      aria-label={`Edit todo: ${todo.title}`}
+      ondblclick={() => onStartEdit(todo)}
+    >
+      {todo.title}
+    </button>
   {/if}
   {#if isEditing}
     <div class="row">
-      <button class="icon-button" on:click={onSave} disabled={busy}>
+      <button class="icon-button" aria-label="Save todo title" onclick={onSave} disabled={busy}>
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
           <path d="M17 21v-8H7v8" />
           <path d="M7 3v5h8" />
         </svg>
       </button>
-      <button class="secondary icon-button" on:mousedown={() => onCancel(true)} on:click={onCancel} disabled={busy}>
+      <button
+        class="secondary icon-button"
+        aria-label="Cancel editing"
+        onmousedown={() => onCancel(true)}
+        onclick={onCancel}
+        disabled={busy}
+      >
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M18 6L6 18" />
           <path d="M6 6l12 12" />
@@ -94,26 +108,26 @@
   {:else}
     <div class="row">
       {#if showReorder}
-        <button class="secondary icon-button" on:click={() => onMoveUp(todo)}>
+        <button class="secondary icon-button" aria-label="Move todo up" onclick={() => onMoveUp(todo)}>
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M12 5l-6 6" />
             <path d="M12 5l6 6" />
           </svg>
         </button>
-        <button class="secondary icon-button" on:click={() => onMoveDown(todo)}>
+        <button class="secondary icon-button" aria-label="Move todo down" onclick={() => onMoveDown(todo)}>
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M12 19l-6-6" />
             <path d="M12 19l6-6" />
           </svg>
         </button>
       {:else}
-        <button class="secondary icon-button" on:click={() => onStartEdit(todo)}>
+        <button class="secondary icon-button" aria-label="Edit todo" onclick={() => onStartEdit(todo)}>
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M12 20h9" />
             <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
           </svg>
         </button>
-        <button class="danger icon-button" on:click={() => onDelete(todo)}>
+        <button class="danger icon-button" aria-label="Delete todo" onclick={() => onDelete(todo)}>
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M3 6h18" />
             <path d="M8 6V4h8v2" />

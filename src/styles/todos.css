@@ -4,6 +4,32 @@
   gap: 10px;
 }
 
+.todo-add-form {
+  --todo-add-control-height: 42px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.todo-add-form .todo-add-input {
+  margin-top: 0;
+  height: var(--todo-add-control-height);
+  padding-top: 0;
+  padding-bottom: 0;
+  line-height: 1.2;
+}
+
+.todo-add-form .icon-button {
+  height: var(--todo-add-control-height);
+  width: var(--todo-add-control-height);
+  padding: 0;
+  border: 1px solid var(--border);
+  line-height: 1;
+  justify-content: center;
+}
+
 .todo-item {
   border: 1px solid var(--border);
   border-radius: 12px;
@@ -42,6 +68,16 @@
 .todo-item.done {
   opacity: 0.6;
   text-decoration: line-through;
+}
+
+.todo-title {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  font: inherit;
 }
 
 .loader {

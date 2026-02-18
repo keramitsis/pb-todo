@@ -330,20 +330,20 @@
 
 </script>
 
-<form class="form" on:submit|preventDefault={addTodo}>
-  <div>
-    <label for="newTitle">New todo</label>
-    <input id="newTitle" type="text" bind:value={newTitle} placeholder="Ship the MVP" />
-  </div>
-  <div class="row">
-    <button type="submit" disabled={busy}>
-      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M12 5v14" />
-        <path d="M5 12h14" />
-      </svg>
-      Add
-    </button>
-  </div>
+<form
+  class="todo-add-form"
+  onsubmit={(event) => {
+    event.preventDefault()
+    addTodo()
+  }}
+>
+  <input id="newTitle" class="todo-add-input" type="text" bind:value={newTitle} placeholder="New ToDo" />
+  <button type="submit" class="icon-button" aria-label="Add todo" disabled={busy}>
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 5v14" />
+      <path d="M5 12h14" />
+    </svg>
+  </button>
 </form>
 
 {#if loadError}

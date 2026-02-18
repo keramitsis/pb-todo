@@ -36,7 +36,13 @@
 
 <h1>Sign in</h1>
 <p class="sub">Use your PocketBase username and password.</p>
-<form class="form" on:submit|preventDefault={login}>
+<form
+  class="form"
+  onsubmit={(event) => {
+    event.preventDefault()
+    login()
+  }}
+>
   <div>
     <label for="username">Username or email</label>
     <input
