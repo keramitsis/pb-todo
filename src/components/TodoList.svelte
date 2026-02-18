@@ -1,5 +1,8 @@
 <script>
   import { onMount } from 'svelte'
+  import { flip } from 'svelte/animate'
+  import { cubicOut } from 'svelte/easing'
+  import { fade, fly } from 'svelte/transition'
   import { runTask } from '../lib/async'
   import { createTodo, deleteTodo, getTodo, listTodos, updateTodo } from '../lib/todos'
   import {
@@ -365,29 +368,36 @@
   {:else if todos.length === 0}
     <small class="muted">No todos yet.</small>
   {:else}
-    {#each todos as todo}
-      <TodoItem
-        {todo}
-        {busy}
-        isEditing={editingId === todo.id}
-        {editingTitle}
-        onToggle={toggleDone}
-        onStartEdit={startEdit}
-        onSave={saveEdit}
-        onCancel={cancelEdit}
-        onDelete={removeTodo}
-        onTitleChange={(value) => (editingTitle = value)}
-        onBlur={handleEditBlur}
-        onDragStart={handleDragStart}
-        onDragOver={handleDragOver}
-        onDragEnd={handleDragEnd}
-        onDrop={handleDrop}
-        dropPosition={dragOverId === todo.id ? dragOverPosition : null}
-        onLongPress={handleLongPress}
-        showReorder={reorderId === todo.id}
-        onMoveUp={moveUp}
-        onMoveDown={moveDown}
-      />
+    {#each todos as todo (todo.id)}
+      <div
+        class="todo-motion-item"
+        animate:flip={{ duration: 220, easing: cubicOut }}
+        in:fly={{ y: 10, duration: 180, opacity: 0.25 }}
+        out:fade={{ duration: 140 }}
+      >
+        <TodoItem
+          {todo}
+          {busy}
+          isEditing={editingId === todo.id}
+          {editingTitle}
+          onToggle={toggleDone}
+          onStartEdit={startEdit}
+          onSave={saveEdit}
+          onCancel={cancelEdit}
+          onDelete={removeTodo}
+          onTitleChange={(value) => (editingTitle = value)}
+          onBlur={handleEditBlur}
+          onDragStart={handleDragStart}
+          onDragOver={handleDragOver}
+          onDragEnd={handleDragEnd}
+          onDrop={handleDrop}
+          dropPosition={dragOverId === todo.id ? dragOverPosition : null}
+          onLongPress={handleLongPress}
+          showReorder={reorderId === todo.id}
+          onMoveUp={moveUp}
+          onMoveDown={moveDown}
+        />
+      </div>
     {/each}
   {/if}
 </div>
